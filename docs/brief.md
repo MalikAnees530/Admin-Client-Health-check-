@@ -95,7 +95,7 @@ I have a large library of Claude Code skills installed. Use any of them **whenev
 - **Connecting local to remote:** if the local folder has no git history yet, propose either cloning the repo into it or `git init` + adding the remote + pulling `main`. If the local folder already has its own commits, warn me about unrelated histories and propose the safest option. Ask me before running anything.
 - **The repo is public.** Treat this as a hard constraint:
   - `.env*` files (except `.env.example`), database dumps, real client names, real client data, credentials and API keys must never be committed. Set up `.gitignore` in Phase 0, before any other file.
-  - Seed data and test fixtures must use fake clients only (e.g., "Acme Dental", "Demo Bakery"), never "iSmash" or "Abdullah.com" or any real client.
+  - Seed data and test fixtures must use clearly fake, generic clients only (e.g., "Acme Dental", "Demo Bakery"). Never use real client data.
   - Propose a secret-scanning safeguard (e.g., GitHub secret scanning / push protection, and optionally a pre-commit check).
   - Ask me whether I want to make the repository private before real work starts.
 - **Branching:** propose a strategy that fits superpowers (it may use git worktrees and feature branches during `subagent-driven-development`). Recommend: protected `main`, one feature branch per phase or task group, pull requests with CI required to pass before merge. Ask me whether I want PRs or direct merges, since I am a solo developer.
@@ -117,15 +117,17 @@ The core question the portal must answer at a glance: **"For client X, are we on
 ## 4. Source material (transcribed from my whiteboard and notebook)
 
 **Whiteboard:**
-- Heading "Clients" → "Client Names" → example client "iSmash" → a box representing that client's project details.
+> **Note:** "iSmash" and "Abdullah.com" in my sketches are **placeholder examples only** to illustrate the idea. They are not real clients of this project. Do **not** create them, seed them, hardcode them, use them in tests or fixtures, or mention them in the UI or the design document. The app starts with zero clients; the admin adds every client through the UI.
+
+- Heading "Clients" → "Client Names" → an example client name → a box representing that client's project details.
 - A "Selection" dropdown with a checkmark at the top (I read this as a client selector).
-- Left side: "Avg. 3 months" → example client "Abdullah.com" → "Meta" with two toggles **BP** (Baseline Performance) and **PN** (Projected Numbers), and a line chart with a solid rising line (actuals) and dashed horizontal lines (baseline / projected).
+- Left side: "Avg. 3 months" → another example client name → "Meta" with two toggles **BP** (Baseline Performance) and **PN** (Projected Numbers), and a line chart with a solid rising line (actuals) and dashed horizontal lines (baseline / projected).
 - From the project box: "Baseline Performance Numbers" and "Projected Numbers", connected to channels **Ads, Social, SEO**, where SEO branches to **Org, Paid** and **GBP** (Google Business Profile).
 - Right side, linked to the project box: **Onboarding Date** (with a box labelled "Zero" pointing at it), **POC Details** (Contact #, Email, Name, with a "+" add button), **Billing cycle**, **Contract value**, **Services agreed** (marked with `*` and visually connected to the channel list), **Milestone** (with "+") → Q1, Q2, Q3, Q4.
 
 **Notebook:**
 - "For each client we have: Baseline performance, Projected number, Date — for past 3M."
-- Same tree: Clients → Client names → iSmash → project details → onboarding date, POC details (contact, email, name, +), billing cycle, contract value, services agreed, milestones (+) → "Quarter Base" Q1–Q4.
+- Same tree: Clients → Client names → (example client) → project details → onboarding date, POC details (contact, email, name, +), billing cycle, contract value, services agreed, milestones (+) → "Quarter Base" Q1–Q4.
 
 **My interpretations (please confirm or challenge each):**
 - **Baseline = the average of the 3 months before onboarding**, per channel/metric.
